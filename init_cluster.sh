@@ -1,7 +1,10 @@
+#!/bin/bash
+
 rm -rf ./ssh && mkdir ./ssh
 ssh-keygen -t rsa -q -N "" -f ./ssh/id_rsa
 cp -r ./ssh ./docker
 cp -r ./source ./docker
+./docker/build_docker_compose.sh "$1" "$2"
 docker compose -f ./docker/docker-compose.yaml up -d --build
 rm -rf ./docker/ssh
 rm -rf ./docker/source

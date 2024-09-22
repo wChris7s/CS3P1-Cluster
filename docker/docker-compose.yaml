@@ -7,7 +7,8 @@ x-common-config: &common-config-template
       - "worker1:10.0.0.6"
       - "worker2:10.0.0.7"
       - "worker3:10.0.0.8"
-
+      - "worker4:10.0.0.9"
+      - "worker5:10.0.0.10"
 services:
   master:
     <<: *common-config-template
@@ -18,8 +19,7 @@ services:
         ipv4_address: 10.0.0.5
     ports:
       - "9095:22"
-    command: /bin/bash -c "./configure_mpi_hosts.sh"
-
+    command: /bin/bash -c "./configure_mpi_hosts.sh 5 1"
   worker1:
     <<: *common-config-template
     container_name: worker1
@@ -29,7 +29,6 @@ services:
         ipv4_address: 10.0.0.6
     ports:
       - "9096:22"
-
   worker2:
     <<: *common-config-template
     container_name: worker2
@@ -39,7 +38,6 @@ services:
         ipv4_address: 10.0.0.7
     ports:
       - "9097:22"
-
   worker3:
     <<: *common-config-template
     container_name: worker3
@@ -49,7 +47,24 @@ services:
         ipv4_address: 10.0.0.8
     ports:
       - "9098:22"
-
+  worker4:
+    <<: *common-config-template
+    container_name: worker4
+    hostname: worker4
+    networks:
+      cluster-network:
+        ipv4_address: 10.0.0.9
+    ports:
+      - "9099:22"
+  worker5:
+    <<: *common-config-template
+    container_name: worker5
+    hostname: worker5
+    networks:
+      cluster-network:
+        ipv4_address: 10.0.0.10
+    ports:
+      - "9100:22"
 networks:
   cluster-network:
     driver: bridge
