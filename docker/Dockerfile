@@ -8,7 +8,7 @@ RUN apt-get update && \
     openssh-server \
     openmpi-bin \
     openmpi-common \
-    openmpi-doc \ 
+    openmpi-doc \
     libopenmpi-dev
 
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
