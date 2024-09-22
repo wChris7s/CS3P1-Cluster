@@ -14,7 +14,7 @@ services:
     container_name: master
     hostname: master
     networks:
-      my-net:
+      cluster-network:
         ipv4_address: 10.0.0.5
     ports:
       - "9095:22"
@@ -25,7 +25,7 @@ services:
     container_name: worker1
     hostname: worker1
     networks:
-      my-net:
+      cluster-network:
         ipv4_address: 10.0.0.6
     ports:
       - "9096:22"
@@ -35,7 +35,7 @@ services:
     container_name: worker2
     hostname: worker2
     networks:
-      my-net:
+      cluster-network:
         ipv4_address: 10.0.0.7
     ports:
       - "9097:22"
@@ -45,13 +45,13 @@ services:
     container_name: worker3
     hostname: worker3
     networks:
-      my-net:
+      cluster-network:
         ipv4_address: 10.0.0.8
     ports:
       - "9098:22"
 
 networks:
-  my-net:
+  cluster-network:
     driver: bridge
     ipam:
       config:
