@@ -1,3 +1,0 @@
-/home/cwsg/Ucsp/CS3P1-Cluster/cmake-build-debug/CMakeFiles/CS3P1_Cluster.dir
-/home/cwsg/Ucsp/CS3P1-Cluster/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/cwsg/Ucsp/CS3P1-Cluster/cmake-build-debug/CMakeFiles/rebuild_cache.dir
