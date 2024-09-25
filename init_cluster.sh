@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "Usage: $0 <arg1=number of workers including master node> <arg2=node slots>"
+    exit 1
+fi
+
 rm -rf ./ssh && mkdir ./ssh
 ssh-keygen -t rsa -q -N "" -f ./ssh/id_rsa
 cp -r ./ssh ./docker

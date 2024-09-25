@@ -17,7 +17,7 @@ RUN echo "    UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config
 RUN echo "    LogLevel ERROR" >> /etc/ssh/ssh_config
 
 # SSH
-RUN mkdir /var/run/sshd
+RUN  mkdir /var/run/sshd
 COPY ssh /root/.ssh/
 COPY ssh/id_rsa.pub /root/.ssh/authorized_keys
 RUN  chmod 700 /root/.ssh && chmod 600 /root/.ssh/authorized_keys
@@ -25,18 +25,17 @@ RUN  chmod 700 /root/.ssh && chmod 600 /root/.ssh/authorized_keys
 WORKDIR /home
 
 # CPP
-COPY source/main.cpp .
-RUN  mpic++ main.cpp -o main
+COPY source/mpi_mat_vect_mult.cpp .
+COPY source/mpi_odd_even.cpp .
+RUN  mpic++ -g -Wall -o mpi_mat_vect_mult mpi_mat_vect_mult.cpp
+RUN  mpic++ -g -Wall -o mpi_odd_even mpi_odd_even.cpp
+
+# DEBUG
+RUN  mpic++ -DDEBUG -g -Wall -o  d_mpi_mat_vect_mult mpi_mat_vect_mult.cpp
+RUN  mpic++ -DDEBUG -g -Wall -o  d_mpi_odd_even mpi_odd_even.cpp
 
 # SETUP
 COPY configure_mpi_hosts.sh .
 RUN  chmod +x ./configure_mpi_hosts.sh
 
 CMD ["/usr/sbin/sshd", "-D"]
-
-# ssh-keygen -t rsa -q -N "" -f ./ssh/id_rsa
-# mpirun --allow-run-as-root -hostfile hosts ./main
-# mpirun --allow-run-as-root -H master,worker1,worker2,worker3 ./main
-# mpirun --allow-run-as-root --hostfile hosts -np 4 ./main
-# ssh <hostname>
-# slots same as np, by default np is 4
