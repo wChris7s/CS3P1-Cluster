@@ -1,7 +1,3 @@
-Here's the translation to English:
-
----
-
 # Configuring an MPI Cluster using Docker
 
 This project demonstrates how to set up a cluster using Docker and Docker Compose to run parallel programs with MPI (Message Passing Interface).
