@@ -1,17 +1,17 @@
 #!/bin/bash
 
 if [ -z "$1" ] || [ -z "$2" ]; then
-    echo "Usage: $0 <arg1=number of workers including master node> <arg2=node slots>"
+    echo "[ ERR ]: You must enter the following arguments: .\init_cluster <number of workers including the master> <default processes that each node will have>"
     exit 1
 fi
 
 rm -rf ./ssh && mkdir ./ssh
 ssh-keygen -t rsa -q -N "" -f ./ssh/id_rsa
 cp -r ./ssh ./docker
-cp -r ./source ./docker
-./docker/build_docker_compose.sh "$1" "$2"
+
+./docker/scripts/build_dc.sh "$1" "$2"
 docker compose -f ./docker/docker-compose.yaml up -d --build
+
 rm -rf ./docker/ssh
-rm -rf ./docker/source
 docker ps -a
 docker exec -it master /bin/bash
