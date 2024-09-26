@@ -15,6 +15,16 @@ x-common-config: &common-config-template
       - "worker9:10.0.0.14"
       - "worker10:10.0.0.15"
       - "worker11:10.0.0.16"
+      - "worker12:10.0.0.17"
+      - "worker13:10.0.0.18"
+      - "worker14:10.0.0.19"
+      - "worker15:10.0.0.20"
+      - "worker16:10.0.0.21"
+      - "worker17:10.0.0.22"
+      - "worker18:10.0.0.23"
+      - "worker19:10.0.0.24"
+  volumes:
+      - ../source:/home/shared
 services:
   master:
     <<: *common-config-template
@@ -25,7 +35,7 @@ services:
         ipv4_address: 10.0.0.5
     ports:
       - "9095:22"
-    command: /bin/bash -c "./configure_mpi_hosts.sh 11 1"
+    command: /bin/bash -c "./load_hosts.sh 19 1"
   worker1:
     <<: *common-config-template
     container_name: worker1
@@ -125,6 +135,78 @@ services:
         ipv4_address: 10.0.0.16
     ports:
       - "9106:22"
+  worker12:
+    <<: *common-config-template
+    container_name: worker12
+    hostname: worker12
+    networks:
+      cluster-network:
+        ipv4_address: 10.0.0.17
+    ports:
+      - "9107:22"
+  worker13:
+    <<: *common-config-template
+    container_name: worker13
+    hostname: worker13
+    networks:
+      cluster-network:
+        ipv4_address: 10.0.0.18
+    ports:
+      - "9108:22"
+  worker14:
+    <<: *common-config-template
+    container_name: worker14
+    hostname: worker14
+    networks:
+      cluster-network:
+        ipv4_address: 10.0.0.19
+    ports:
+      - "9109:22"
+  worker15:
+    <<: *common-config-template
+    container_name: worker15
+    hostname: worker15
+    networks:
+      cluster-network:
+        ipv4_address: 10.0.0.20
+    ports:
+      - "9110:22"
+  worker16:
+    <<: *common-config-template
+    container_name: worker16
+    hostname: worker16
+    networks:
+      cluster-network:
+        ipv4_address: 10.0.0.21
+    ports:
+      - "9111:22"
+  worker17:
+    <<: *common-config-template
+    container_name: worker17
+    hostname: worker17
+    networks:
+      cluster-network:
+        ipv4_address: 10.0.0.22
+    ports:
+      - "9112:22"
+  worker18:
+    <<: *common-config-template
+    container_name: worker18
+    hostname: worker18
+    networks:
+      cluster-network:
+        ipv4_address: 10.0.0.23
+    ports:
+      - "9113:22"
+  worker19:
+    <<: *common-config-template
+    container_name: worker19
+    hostname: worker19
+    networks:
+      cluster-network:
+        ipv4_address: 10.0.0.24
+    ports:
+      - "9114:22"
 networks:
   cluster-network:
     driver: bridge

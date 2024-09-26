@@ -23,6 +23,8 @@ for i in $(seq 1 "$NUM_WORKERS"); do
 done
 
 cat >> docker/docker-compose.yaml <<EOL
+  volumes:
+      - ../source:/home/shared
 services:
   master:
     <<: *common-config-template
@@ -33,7 +35,7 @@ services:
         ipv4_address: 10.0.0.5
     ports:
       - "9095:22"
-    command: /bin/bash -c "./configure_mpi_hosts.sh $NUM_WORKERS $NUM_SLOTS"
+    command: /bin/bash -c "./load_hosts.sh $NUM_WORKERS $NUM_SLOTS"
 EOL
 
 for i in $(seq 1 "$NUM_WORKERS"); do
@@ -52,7 +54,6 @@ for i in $(seq 1 "$NUM_WORKERS"); do
 EOL
 done
 
-# Agregar la configuración de la red
 cat >> docker/docker-compose.yaml <<EOL
 networks:
   cluster-network:
